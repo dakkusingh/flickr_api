@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\flickr\Service;
+namespace Drupal\flickr_api\Service;
 
 use Drupal\Core\Config\ConfigFactory;
 use GuzzleHttp\Client as GuzzleClient;
@@ -20,7 +20,7 @@ class Client {
    */
   public function __construct(ConfigFactory $config) {
     // Get the config.
-    $this->config = $config->get('flickr.settings');
+    $this->config = $config->get('flickr_api.settings');
 
     $this->api_uri = $this->config->get('api_uri');
     $this->host_uri = $this->config->get('host_uri');

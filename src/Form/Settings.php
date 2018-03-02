@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\flickr\Form;
+namespace Drupal\flickr_api\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -8,17 +8,17 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 
 /**
- * Implements the Flickr Settings form controller.
+ * Implements the Flickr API Settings form controller.
  *
  * @see \Drupal\Core\Form\FormBase
  */
-class FlickrSettings extends ConfigFormBase {
+class Settings extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'flickr_settings';
+    return 'flickr_api_settings';
   }
 
   /**
@@ -26,7 +26,7 @@ class FlickrSettings extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'flickr.settings',
+      'flickr_api.settings',
     ];
   }
 
@@ -34,7 +34,7 @@ class FlickrSettings extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('flickr.settings');
+    $config = $this->config('flickr_api.settings');
 
     $form['credentials'] = [
       '#type' => 'fieldset',
@@ -63,19 +63,19 @@ class FlickrSettings extends ConfigFormBase {
       '#default_value' => $config->get('api_secret'),
     ];
 
-    $form['flickr'] = [
+    $form['flickr_api'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Flickr Settings'),
-      '#description' => $this->t('The following settings connect Flickr module with external APIs.'),
+      '#title' => $this->t('Flickr API Settings'),
+      '#description' => $this->t('The following settings connect Flickr API module with external APIs.'),
     ];
 
-    $form['flickr']['host_uri'] = [
+    $form['flickr_api']['host_uri'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Flickr URL'),
       '#default_value' => $config->get('host_uri'),
     ];
 
-    $form['flickr']['api_uri'] = [
+    $form['flickr_api']['api_uri'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Flickr API URL'),
       '#default_value' => $config->get('api_uri'),
@@ -88,7 +88,7 @@ class FlickrSettings extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->config('flickr.settings')
+    $this->config('flickr_api.settings')
       ->set('api_key', $form_state->getValue('api_key'))
       ->set('api_secret', $form_state->getValue('api_secret'))
       ->set('host_uri', $form_state->getValue('host_uri'))

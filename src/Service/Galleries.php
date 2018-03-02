@@ -1,22 +1,22 @@
 <?php
 
-namespace Drupal\flickr\Service;
+namespace Drupal\flickr_api\Service;
 
 /**
- * Service class for Flickr Galleries.
+ * Service class for Flickr API Galleries.
  */
 class Galleries {
 
   /**
-   * @var \Drupal\flickr\Service\Client
+   * @var \Drupal\flickr_api\Service\Client
    */
   protected $client;
 
   /**
-   * Constructor for the Flickr Galleries class.
+   * Constructor for the Flickr API Galleries class.
    */
   public function __construct(Client $client) {
-    // Flickr Client.
+    // Flickr API Client.
     $this->client = $client;
   }
 
@@ -64,7 +64,7 @@ class Galleries {
     ];
     array_merge($args, $other_args);
 
-    // Set per_page to flickr module default if not specified in $args.
+    // Set per_page to flickr_api module default if not specified in $args.
     if (!isset($args['per_page'])) {
       // TODO Expose pager as a setting.
       $args['per_page'] = 6;

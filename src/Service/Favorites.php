@@ -1,22 +1,22 @@
 <?php
 
-namespace Drupal\flickr\Service;
+namespace Drupal\flickr_api\Service;
 
 /**
- * Service class for Flickr Favorites.
+ * Service class for Flickr API Favorites.
  */
 class Favorites {
 
   /**
-   * @var \Drupal\flickr\Service\Client
+   * @var \Drupal\flickr_api\Service\Client
    */
   protected $client;
 
   /**
-   * Constructor for the Flickr Favorites class.
+   * Constructor for the Flickr API Favorites class.
    */
   public function __construct(Client $client) {
-    // Flickr Client.
+    // Flickr API Client.
     $this->client = $client;
   }
 
@@ -40,7 +40,7 @@ class Favorites {
 
     array_merge($args, $other_args);
 
-    // Set per_page to flickr module default if not specified in $args.
+    // Set per_page to flickr_api module default if not specified in $args.
     if (!isset($args['per_page'])) {
       // TODO Expose pager as a setting.
       $args['per_page'] = 6;

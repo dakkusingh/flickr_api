@@ -1,22 +1,22 @@
 <?php
 
-namespace Drupal\flickr\Service;
+namespace Drupal\flickr_api\Service;
 
 /**
- * Service class for Flickr Photosets.
+ * Service class for Flickr API Photosets.
  */
 class Photosets {
 
   /**
-   * @var \Drupal\flickr\Service\Client
+   * @var \Drupal\flickr_api\Service\Client
    */
   protected $client;
 
   /**
-   * Constructor for the Flickr Photosets class.
+   * Constructor for the Flickr API Photosets class.
    */
   public function __construct(Client $client) {
-    // Flickr Client.
+    // Flickr API Client.
     $this->client = $client;
   }
 
@@ -84,7 +84,7 @@ class Photosets {
    * Get the list of photos in a set.
    *
    * @param string $photoset_id
-   *   The Flickr photoset ID.
+   *   The Flickr API photoset ID.
    *
    * @return array
    *   Response from the flickr method flickr.photosets.getPhotos.
@@ -98,7 +98,7 @@ class Photosets {
 
     array_merge($args, $other_args);
 
-    // Set per_page to flickr module default if not specified in $args.
+    // Set per_page to flickr_api module default if not specified in $args.
     if (!isset($args['per_page'])) {
       // TODO Expose pager as a setting.
       $args['per_page'] = 6;

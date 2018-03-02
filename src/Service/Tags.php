@@ -1,22 +1,22 @@
 <?php
 
-namespace Drupal\flickr\Service;
+namespace Drupal\flickr_api\Service;
 
 /**
- * Service class for Flickr Tags.
+ * Service class for Flickr API Tags.
  */
 class Tags {
 
   /**
-   * @var \Drupal\flickr\Service\Client
+   * @var \Drupal\flickr_api\Service\Client
    */
   protected $client;
 
   /**
-   * Constructor for the Flickr Tags class.
+   * Constructor for the Flickr API Tags class.
    */
   public function __construct(Client $client) {
-    // Flickr Client.
+    // Flickr API Client.
     $this->client = $client;
   }
 
