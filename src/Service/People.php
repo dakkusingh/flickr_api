@@ -26,14 +26,14 @@ class People {
    * @param string $nsid
    *   The Flickr user's NSID.
    *
-   * @return array $response
+   * @return array
    *   Array with person's info from flickr.people.getInfo.
    *   (https://www.flickr.com/services/api/flickr.people.getInfo.html)
    *   or FALSE on error.
    */
-  function peopleGetInfo($nsid) {
+  public function peopleGetInfo($nsid) {
     $args = [
-      'user_id' => $nsid
+      'user_id' => $nsid,
     ];
 
     $response = $this->client->request(
@@ -58,9 +58,9 @@ class People {
    *   Response from the flickr method flickr.people.findByUsername.
    *   (https://www.flickr.com/services/api/flickr.people.findByUsername.html)
    */
-  function peopleFindByUsername($username) {
+  public function peopleFindByUsername($username) {
     $args = [
-      'username' => $username
+      'username' => $username,
     ];
 
     $response = $this->client->request(
@@ -85,9 +85,9 @@ class People {
    *   Response from the flickr method flickr.people.findByUsername.
    *   (https://www.flickr.com/services/api/flickr.people.findByUsername.html)
    */
-  function peopleFindByAlias($alias) {
+  public function peopleFindByAlias($alias) {
     $args = [
-      'url' => 'https://www.flickr.com/photos/' . $alias
+      'url' => 'https://www.flickr.com/photos/' . $alias,
     ];
 
     $response = $this->client->request(
@@ -112,9 +112,9 @@ class People {
    *   Response from the flickr method flickr.people.findByEmail.
    *   (https://www.flickr.com/services/api/flickr.people.findByEmail.html)
    */
-  function peopleFindByEmail($email) {
+  public function peopleFindByEmail($email) {
     $args = [
-      'find_email' => $email
+      'find_email' => $email,
     ];
 
     $response = $this->client->request(
@@ -135,11 +135,11 @@ class People {
    * @param string $nsid
    *   NSID of the user whose photos you want.
    *
-   * @return array $response
+   * @return array
    *   Response from the flickr method flickr.people.getPublicPhotos.
    *   (https://www.flickr.com/services/api/flickr.people.getPublicPhotos.html)
    */
-  function peopleGetPublicPhotos($nsid, $page = 1, $other_args = []) {
+  public function peopleGetPublicPhotos($nsid, $page = 1, $other_args = []) {
     $args = [
       'user_id' => $nsid,
       'page' => $page,

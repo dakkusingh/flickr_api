@@ -32,7 +32,7 @@ class Favorites {
    *   Response from the flickr method flickr.favorites.getPublicList.
    *   (https://www.flickr.com/services/api/flickr.favorites.getPublicList.html)
    */
-  function favoritesGetPublicList($nsid, $page = 1, $other_args = []) {
+  public function favoritesGetPublicList($nsid, $page = 1, $other_args = []) {
     $args = [
       'user_id' => $nsid,
       'page' => $page,

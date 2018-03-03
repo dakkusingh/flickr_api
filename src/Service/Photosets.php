@@ -30,7 +30,7 @@ class Photosets {
    *   Response from the flickr method flickr.photosets.getInfo.
    *   (https://www.flickr.com/services/api/flickr.photosets.getInfo.html)
    */
-  function photosetsGetInfo($photoset_id) {
+  public function photosetsGetInfo($photoset_id) {
     $args = ['photoset_id' => $photoset_id];
 
     $response = $this->client->request(
@@ -55,7 +55,7 @@ class Photosets {
    *   Response from the flickr method flickr.photosets.getList.
    *   (https://www.flickr.com/services/api/flickr.photosets.getList.html)
    */
-  function photosetsGetList($nsid, $page = NULL, $per_page = NULL) {
+  public function photosetsGetList($nsid, $page = NULL, $per_page = NULL) {
     $args = [
       'user_id' => $nsid,
     ];
@@ -90,11 +90,11 @@ class Photosets {
    *   Response from the flickr method flickr.photosets.getPhotos.
    *   (https://www.flickr.com/services/api/flickr.photosets.getPhotos.html)
    */
-  function photosetsGetPhotos($photoset_id, $other_args = array(), $page = 1) {
-    $args = array(
+  public function photosetsGetPhotos($photoset_id, $other_args = [], $page = 1) {
+    $args = [
       'photoset_id' => $photoset_id,
       'page' => $page,
-    );
+    ];
 
     array_merge($args, $other_args);
 
