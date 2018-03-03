@@ -31,9 +31,11 @@ class Photos {
    *   (https://www.flickr.com/services/api/flickr.photos.getInfo.html)
    */
   public function photosGetInfo($photo_id) {
+    $args = ['photo_id' => $photo_id];
+
     $response = $this->client->request(
       'flickr.photos.getInfo',
-      ['photo_id' => $photo_id]
+      $args
     );
 
     if ($response) {
@@ -54,9 +56,11 @@ class Photos {
    *   (https://www.flickr.com/services/api/flickr.photos.getSizes.html)
    */
   public function photosGetSizes($photo_id) {
+    $args = ['photo_id' => $photo_id];
+
     $response = $this->client->request(
       'flickr.photos.getSizes',
-      ['photo_id' => $photo_id]
+      $args
     );
 
     if ($response) {
@@ -79,7 +83,6 @@ class Photos {
    *   (https://www.flickr.com/services/api/flickr.photos.search.html)
    */
   public function photosSearch($nsid, $page = 1, $other_args = []) {
-
     $args = [
       'page' => $page,
       'user_id' => $nsid,
