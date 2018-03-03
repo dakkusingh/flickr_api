@@ -25,4 +25,3 @@ services:
     arguments: ["@flickr_api.client"]
   flickr_api.helpers:
     class: Drupal\flickr_api\Service\Helpers
-    arguments: ["@flickr_api.client"]
