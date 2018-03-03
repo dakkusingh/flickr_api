@@ -1,4 +1,4 @@
-name: Flickr API
+name: Flickr API Integration
 description: 'Flickr API and Drupal integration.'
 package: Flickr
 configure: flickr_api.settings
