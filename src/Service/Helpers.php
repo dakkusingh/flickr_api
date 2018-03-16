@@ -81,4 +81,57 @@ class Helpers {
     ];
   }
 
+  /**
+   * Returns TRUE if a value is found in a multidimensional array.
+   * See http://stackoverflow.com/a/4128377.
+   *
+   * @param string $needle
+   *   The value to be matched.
+   *
+   * @param array $haystack
+   *   The array to match.
+   *
+   * @param bool $strict
+   *   If set to TRUE also check the types of the needle in the haystack.
+   *
+   * @return bool
+   *   TRUE if match found.
+   */
+  public function inArrayR($needle, $haystack, $strict = FALSE) {
+    foreach ($haystack as $item) {
+      if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && self::inArrayR($needle, $item, $strict))) {
+        return TRUE;
+      }
+    }
+    return FALSE;
+  }
+
+  /**
+   * Returns the URL to $photo with size $size using the correct image farm
+   * from the $photo variable.
+   *
+   * @param string $photo
+   *   Photo to which the url should point.
+   * @param string $size
+   *   Size of the photo.
+   * @param string $format
+   *   Format of the photo.
+   *
+   * @return array
+   *   URL for $photo with the correct size and format.
+   */
+  public function photoImgUrl($photo, $size = NULL, $format = NULL) {
+    // Early images don't have a farm setting so default to 1.
+    $farm = isset($photo['farm']) ? $photo['farm'] : 1;
+    $server = $photo['server'];
+    // photoset's use primary instead of id to specify the image.
+    $id = isset($photo['primary']) ? $photo['primary'] : $photo['id'];
+    $secret = $photo['secret'];
+    $suffix = $size ? "_$size." : '.';
+    $suffix = $size == '-' ? '.' : $suffix;
+    $extension = $size == 'o' ? $format : 'jpg';
+
+    return "https://farm{$farm}.static.flickr.com/{$server}/{$id}_{$secret}" . $suffix . $extension;
+  }
+
 }
