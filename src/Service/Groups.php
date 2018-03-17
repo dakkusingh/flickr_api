@@ -41,7 +41,7 @@ class Groups {
       $args = ['group_path_alias' => $id];
     }
 
-    array_merge($args, $other_args);
+    $args = array_merge($args, $other_args);
 
     $response = $this->client->request(
       'flickr.groups.getInfo',

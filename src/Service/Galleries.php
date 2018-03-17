@@ -32,7 +32,7 @@ class Galleries {
    */
   public function galleriesGetInfo($id, $other_args = []) {
     $args = ['gallery_id' => $id];
-    array_merge($args, $other_args);
+    $args = array_merge($args, $other_args);
 
     $response = $this->client->request(
       'flickr.galleries.getInfo',
@@ -62,7 +62,7 @@ class Galleries {
       'gallery_id' => $id,
       'page' => $page,
     ];
-    array_merge($args, $other_args);
+    $args = array_merge($args, $other_args);
 
     // Set per_page to flickr_api module default if not specified in $args.
     if (!isset($args['per_page'])) {

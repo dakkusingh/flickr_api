@@ -88,7 +88,7 @@ class Photos {
       'user_id' => $nsid,
     ];
 
-    array_merge($args, $other_args);
+    $args = array_merge($args, $other_args);
 
     // Set per_page to flickr_api module default if not specified in $args.
     if (!isset($args['per_page'])) {
