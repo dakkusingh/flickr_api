@@ -101,6 +101,14 @@ class Client {
    * @return bool|mixed
    */
   private function doRequest($url, $parameters = [], $requestMethod = 'GET') {
+    if (!$this->api_key || !$this->api_secret) {
+      $msg = t('Flickr API credentials are not set. It can be set on the <a href=":config_page">configuration page</a>.',
+        [':config_page' => \Drupal::url('flickr_api.settings')]
+      );
+
+      drupal_set_message($msg, 'error');
+      return FALSE;
+    }
     $response = $this->client->request($requestMethod, $url, ['query' => $parameters]);
 
     // TODO Error checking can be improved.
