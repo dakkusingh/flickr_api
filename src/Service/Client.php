@@ -30,6 +30,7 @@ class Client {
     $this->host_uri = $this->config->get('host_uri');
     $this->api_key = $this->config->get('api_key');
     $this->api_secret = $this->config->get('api_secret');
+    $this->api_cache_maximum_age = $this->config->get('api_cache_maximum_age');
 
     $this->client = new GuzzleClient([
       'base_uri' => $this->api_uri,
@@ -49,17 +50,37 @@ class Client {
     $args = $this->buildArgs($args, $method);
     $arg_hash = $this->buildArgHash($args);
 
-    // If we've got a secret, sign the arguments.
-    if ($secret = $this->api_secret) {
-      $args['api_sig'] = md5($secret . $arg_hash);
-    }
+    //$response = &drupal_static(__FUNCTION__); // Can be replaced with the `__METHOD__`
+    $cid = 'flickr_api:' . md5($arg_hash);
 
-    $response = $this->doRequest('', $args);
-    // TODO Implement Drupal 8 cache.
-    if ($response) {
+    // Check cache.
+    if ($cache = \Drupal::cache()->get($cid)) {
+      $response = $cache->data;
+
+      // Return result from cache if found.
       return $response;
     }
+    // No cache. Do it the hard way.
+    else {
+      // If we've got a secret, sign the arguments.
+      if ($secret = $this->api_secret) {
+        $args['api_sig'] = md5($secret . $arg_hash);
+      }
 
+      // TODO Implement try catch.
+      $response = $this->doRequest('', $args);
+      if ($response) {
+        // Cache the response if we got one.
+        if ($this->api_cache_maximum_age != 0) {
+          \Drupal::cache()->set($cid, $response, time() + $this->api_cache_maximum_age);
+        }
+
+        // Return result from source if found.
+        return $response;
+      }
+    }
+
+    // Tough luck, no results mate.
     return FALSE;
   }
 
