@@ -32,7 +32,7 @@ class Client {
     $this->api_secret = $this->config->get('api_secret');
     $this->api_cache_maximum_age = $this->config->get('api_cache_maximum_age');
 
-    $this->client = new GuzzleClient([
+    $this->guzzleClient = new GuzzleClient([
       'base_uri' => $this->api_uri,
     ]);
 
@@ -71,7 +71,7 @@ class Client {
       $response = $this->doRequest('', $args);
       if ($response) {
         // Cache the response if we got one.
-        if ($this->api_cache_maximum_age != 0) {
+        if ($this->api_cache_maximum_age != 0 && $cacheable == TRUE) {
           \Drupal::cache()->set($cid, $response, time() + $this->api_cache_maximum_age);
         }
 
@@ -134,7 +134,7 @@ class Client {
       drupal_set_message($msg, 'error');
       return FALSE;
     }
-    $response = $this->client->request($requestMethod, $url, ['query' => $parameters]);
+    $response = $this->guzzleClient->request($requestMethod, $url, ['query' => $parameters]);
 
     // TODO Error checking can be improved.
     if ($response->getStatusCode() == !200) {
