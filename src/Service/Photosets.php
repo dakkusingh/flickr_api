@@ -3,7 +3,7 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Class Photosets
+ * Class Photosets.
  *
  * @package Drupal\flickr_api\Service
  */
@@ -30,6 +30,8 @@ class Photosets {
    * @param string $photoset_id
    *   ID of the photoset to get information about.
    *
+   * @param bool $cacheable
+   *
    * @return array
    *   Response from the flickr method flickr.photosets.getInfo.
    *   (https://www.flickr.com/services/api/flickr.photosets.getInfo.html)
@@ -55,6 +57,10 @@ class Photosets {
    *
    * @param string $nsid
    *   NSID of the user whose photoset list you want.
+   *
+   * @param null $page
+   * @param null $per_page
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.photosets.getList.
@@ -92,6 +98,10 @@ class Photosets {
    * @param string $photoset_id
    *   The Flickr API photoset ID.
    *
+   * @param array $other_args
+   * @param int $page
+   * @param bool $cacheable
+   *
    * @return array
    *   Response from the flickr method flickr.photosets.getPhotos.
    *   (https://www.flickr.com/services/api/flickr.photosets.getPhotos.html)
@@ -126,6 +136,9 @@ class Photosets {
     return FALSE;
   }
 
+  /**
+   *
+   */
   public function photosetsGetPhotosExtras() {
     $extras = [
       'license',
@@ -146,7 +159,7 @@ class Photosets {
       'url_t',
       'url_s',
       'url_m',
-      'url_o'
+      'url_o',
     ];
 
     return $extras;

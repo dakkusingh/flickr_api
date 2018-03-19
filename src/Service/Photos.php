@@ -3,7 +3,7 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Class Photos
+ * Class Photos.
  *
  * @package Drupal\flickr_api\Service
  */
@@ -29,6 +29,8 @@ class Photos {
    *
    * @param string $photo_id
    *   ID of the photo to get info about.
+   *
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.photos.getInfo..
@@ -56,6 +58,8 @@ class Photos {
    * @param string $photo_id
    *   ID of the photo to get the available sizes of.
    *
+   * @param bool $cacheable
+   *
    * @return array
    *   Response from the flickr method flickr.photos.getSizes..
    *   (https://www.flickr.com/services/api/flickr.photos.getSizes.html)
@@ -81,8 +85,11 @@ class Photos {
    *
    * @param string $nsid
    *   NSID of the user whose photoset tags will be returned.
-   * @param string $page
+   * @param int $page
    *   Page of results to return.
+   *
+   * @param array $other_args
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.photos.search.

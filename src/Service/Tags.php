@@ -3,7 +3,7 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Class Tags
+ * Class Tags.
  *
  * @package Drupal\flickr_api\Service
  */
@@ -31,6 +31,8 @@ class Tags {
    *   NSID of the user whose tags will be returned.
    * @param string $count
    *   Number of tags to return.
+   *
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.tags.getListUserPopular.
@@ -61,6 +63,8 @@ class Tags {
    *
    * @param string $nsid
    *   NSID of the user whose photoset tags will be returned.
+   *
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.tags.getListUser.

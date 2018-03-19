@@ -2,15 +2,21 @@
 
 namespace Drupal\flickr_api\Service;
 
+use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use GuzzleHttp\Client as GuzzleClient;
+use Drupal\Core\Url;
 
 /**
- * Class Client
+ * Class Client.
  *
  * @package Drupal\flickr_api\Service
  */
 class Client {
+
+  use StringTranslationTrait;
 
   /**
    * @var \Drupal\Core\Config\Config
@@ -21,10 +27,18 @@ class Client {
    * Client constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactory $config
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cacheBackend
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $stringTranslation
    */
-  public function __construct(ConfigFactory $config) {
+  public function __construct(ConfigFactory $config,
+                              CacheBackendInterface $cacheBackend,
+                              TranslationInterface $stringTranslation) {
     // Get the config.
     $this->config = $config->get('flickr_api.settings');
+    // Cache Backend.
+    $this->cacheBackend = $cacheBackend;
+    // String Translation.
+    $this->stringTranslation = $stringTranslation;
 
     $this->api_uri = $this->config->get('api_uri');
     $this->host_uri = $this->config->get('host_uri');
@@ -50,11 +64,11 @@ class Client {
     $args = $this->buildArgs($args, $method);
     $arg_hash = $this->buildArgHash($args);
 
-    //$response = &drupal_static(__FUNCTION__); // Can be replaced with the `__METHOD__`
+    // $response = &drupal_static(__FUNCTION__); // Can be replaced with the `__METHOD__`.
     $cid = 'flickr_api:' . md5($arg_hash);
 
     // Check cache.
-    if ($cache = \Drupal::cache()->get($cid)) {
+    if ($cache = $this->cacheBackend->get($cid)) {
       $response = $cache->data;
 
       // Return result from cache if found.
@@ -72,7 +86,7 @@ class Client {
       if ($response) {
         // Cache the response if we got one.
         if ($this->api_cache_maximum_age != 0 && $cacheable == TRUE) {
-          \Drupal::cache()->set($cid, $response, time() + $this->api_cache_maximum_age);
+          $this->cacheBackend->set($cid, $response, time() + $this->api_cache_maximum_age);
         }
 
         // Return result from source if found.
@@ -127,8 +141,8 @@ class Client {
    */
   private function doRequest($url, $parameters = [], $requestMethod = 'GET') {
     if (!$this->api_key || !$this->api_secret) {
-      $msg = t('Flickr API credentials are not set. It can be set on the <a href=":config_page">configuration page</a>.',
-        [':config_page' => \Drupal::url('flickr_api.settings')]
+      $msg = $this->t('Flickr API credentials are not set. It can be set on the <a href=":config_page">configuration page</a>.',
+        [':config_page' => Url::fromRoute('flickr_api.settings')]
       );
 
       drupal_set_message($msg, 'error');

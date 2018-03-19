@@ -114,10 +114,9 @@ class Settings extends ConfigFormBase {
       '#default_value' => $config->get('api_uri'),
     ];
 
-
     $form['caching'] = [
       '#type' => 'details',
-      '#title' => t('Flickr API Caching'),
+      '#title' => $this->t('Flickr API Caching'),
       '#open' => TRUE,
       '#description' => $this->t('API caching is recommended for all websites.'),
     ];
@@ -126,13 +125,13 @@ class Settings extends ConfigFormBase {
     // @see \Drupal\Core\Block\BlockBase::buildConfigurationForm()
     $period = [0, 60, 180, 300, 600, 900, 1800, 2700, 3600, 10800, 21600, 32400, 43200, 86400];
     $period = array_map([$this->dateFormatter, 'formatInterval'], array_combine($period, $period));
-    $period[0] = '<' . t('no caching') . '>';
+    $period[0] = '<' . $this->t('no caching') . '>';
     $form['caching']['api_cache_maximum_age'] = [
       '#type' => 'select',
-      '#title' => t('API cache maximum age'),
+      '#title' => $this->t('API cache maximum age'),
       '#default_value' => $config->get('api_cache_maximum_age'),
       '#options' => $period,
-      '#description' => t('The maximum time a API request can be cached by Drupal.'),
+      '#description' => $this->t('The maximum time a API request can be cached by Drupal.'),
     ];
 
     return parent::buildForm($form, $form_state);

@@ -3,7 +3,7 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Class Groups
+ * Class Groups.
  *
  * @package Drupal\flickr_api\Service
  */
@@ -33,6 +33,9 @@ class Groups {
    *
    * @param string $id
    *   NSID of the group whose photos you want.
+   *
+   * @param array $other_args
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.groups.getInfo.

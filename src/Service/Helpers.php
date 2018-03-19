@@ -2,12 +2,26 @@
 
 namespace Drupal\flickr_api\Service;
 
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
+
 /**
- * Class Helpers
+ * Class Helpers.
  *
  * @package Drupal\flickr_api\Service
  */
 class Helpers {
+
+  use StringTranslationTrait;
+
+  /**
+   * Helpers constructor.
+   *
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $stringTranslation
+   */
+  public function __construct(TranslationInterface $stringTranslation) {
+    $this->stringTranslation = $stringTranslation;
+  }
 
   /**
    * @param $id
@@ -28,83 +42,83 @@ class Helpers {
     return [
       's' => [
         'label' => 'Square',
-        'description' => t('s: 75 px square'),
+        'description' => $this->t('s: 75 px square'),
         'width' => 75,
         'height' => 75,
       ],
       't' => [
         'label' => 'Thumbnail',
-        'description' => t('t: 100px on longest side'),
+        'description' => $this->t('t: 100px on longest side'),
         'width' => 100,
         'height' => 67,
       ],
       'q' => [
         'label' => 'Large Square',
-        'description' => t('q: 150px square'),
+        'description' => $this->t('q: 150px square'),
         'width' => 150,
         'height' => 150,
       ],
       'm' => [
         'label' => 'Small',
-        'description' => t('m: 240px on longest side'),
+        'description' => $this->t('m: 240px on longest side'),
         'width' => 240,
         'height' => 240,
       ],
       'n' => [
         'label' => 'Small 320',
-        'description' => t('n: 320px on longest side'),
+        'description' => $this->t('n: 320px on longest side'),
         'width' => 320,
         'height' => 320,
       ],
       '-' => [
         'label' => 'Medium',
-        'description' => t('-: 500px on longest side'),
+        'description' => $this->t('-: 500px on longest side'),
         'width' => 500,
         'height' => 500,
       ],
       'z' => [
         'label' => 'Medium 640',
-        'description' => t('z: 640px on longest side'),
+        'description' => $this->t('z: 640px on longest side'),
         'width' => 640,
         'height' => 640,
       ],
       'c' => [
         'label' => 'Medium 800',
-        'description' => t('c: 800px on longest side'),
+        'description' => $this->t('c: 800px on longest side'),
         'width' => 800,
         'height' => 800,
       ],
       'b' => [
         'label' => 'Large',
-        'description' => t('b: 1024px on longest side'),
+        'description' => $this->t('b: 1024px on longest side'),
         'width' => 1024,
         'height' => 1024,
       ],
       'h' => [
         'label' => 'Large 1600',
-        'description' => t('h: 1600px on longest side'),
+        'description' => $this->t('h: 1600px on longest side'),
         'width' => 1600,
         'height' => 1600,
       ],
       'k' => [
         'label' => 'Large 2048',
-        'description' => t('k: 2048px on longest side'),
+        'description' => $this->t('k: 2048px on longest side'),
         'width' => 2048,
         'height' => 2048,
       ],
       'o' => [
         'label' => 'Original',
-        'description' => t('o: Original image'),
+        'description' => $this->t('o: Original image'),
         'width' => 2048,
         'height' => 2048,
       ],
       'x' => [
         'label' => 'slideshow',
-        'description' => t('x: Full featured responsive slideshow (for group, set and user IDs only)'),
+        'description' => $this->t('x: Full featured responsive slideshow (for group, set and user IDs only)'),
       ],
       'y' => [
         'label' => 'Simple slideshow',
-        'description' => t('y: Basic responsive slideshow (for set and user IDs only)'),
+        'description' => $this->t('y: Basic responsive slideshow (for set and user IDs only)'),
       ],
     ];
   }

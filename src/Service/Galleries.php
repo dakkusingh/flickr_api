@@ -3,7 +3,7 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Class Galleries
+ * Class Galleries.
  *
  * @package Drupal\flickr_api\Service
  */
@@ -29,6 +29,8 @@ class Galleries {
    *
    * @param string $id
    *   NSID of the gallery whose photos you want.
+   *
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.gallery.getInfo.
@@ -56,6 +58,10 @@ class Galleries {
    *
    * @param string $id
    *   ID of the gallery.
+   *
+   * @param int $page
+   * @param array $other_args
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.galleries.getPhotos.
@@ -92,6 +98,9 @@ class Galleries {
    *
    * @param string $nsid
    *   NSID of the user whose photoset list you want.
+   *
+   * @param int $page
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.galleries.getList.

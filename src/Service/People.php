@@ -3,7 +3,7 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Class People
+ * Class People.
  *
  * @package Drupal\flickr_api\Service
  */
@@ -29,6 +29,8 @@ class People {
    *
    * @param string $nsid
    *   The Flickr user's NSID.
+   *
+   * @param bool $cacheable
    *
    * @return array
    *   Array with person's info from flickr.people.getInfo.
@@ -59,6 +61,8 @@ class People {
    * @param string $username
    *   Username to look for.
    *
+   * @param bool $cacheable
+   *
    * @return array
    *   Response from the flickr method flickr.people.findByUsername.
    *   (https://www.flickr.com/services/api/flickr.people.findByUsername.html)
@@ -86,6 +90,8 @@ class People {
    *
    * @param string $alias
    *   Username to look for.
+   *
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.people.findByUsername.
@@ -115,6 +121,8 @@ class People {
    * @param string $email
    *   Email to look for.
    *
+   * @param bool $cacheable
+   *
    * @return array
    *   Response from the flickr method flickr.people.findByEmail.
    *   (https://www.flickr.com/services/api/flickr.people.findByEmail.html)
@@ -142,6 +150,10 @@ class People {
    *
    * @param string $nsid
    *   NSID of the user whose photos you want.
+   *
+   * @param int $page
+   * @param array $other_args
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.people.getPublicPhotos.

@@ -3,7 +3,7 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Class Favorites
+ * Class Favorites.
  *
  * @package Drupal\flickr_api\Service
  */
@@ -29,8 +29,11 @@ class Favorites {
    *
    * @param string $nsid
    *   NSID of the user whose photoset tags will be returned.
-   * @param string $page
+   * @param int $page
    *   Page of results to return.
+   *
+   * @param array $other_args
+   * @param bool $cacheable
    *
    * @return array
    *   Response from the flickr method flickr.favorites.getPublicList.
