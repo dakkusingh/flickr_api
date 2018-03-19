@@ -103,6 +103,9 @@ class Photosets {
       // TODO Expose pager as a setting.
       $args['per_page'] = 6;
     }
+    if (!isset($args['extras'])) {
+      $args['extras'] = implode(',', $this->photosetsGetPhotosExtras());
+    }
 
     $response = $this->client->request(
       'flickr.photosets.getPhotos',
@@ -116,4 +119,29 @@ class Photosets {
     return FALSE;
   }
 
+  public function photosetsGetPhotosExtras() {
+    $extras = [
+      'license',
+      'date_upload',
+      'date_taken',
+      'owner_name',
+      'icon_server',
+      'original_format',
+      'last_update',
+      'geo',
+      'tags',
+      'machine_tags',
+      'o_dims',
+      'views',
+      'media',
+      'path_alias',
+      'url_sq',
+      'url_t',
+      'url_s',
+      'url_m',
+      'url_o'
+    ];
+
+    return $extras;
+  }
 }
