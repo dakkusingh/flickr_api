@@ -6,7 +6,9 @@ use Drupal\Core\Config\ConfigFactory;
 use GuzzleHttp\Client as GuzzleClient;
 
 /**
- * Service class for Client.
+ * Class Client
+ *
+ * @package Drupal\flickr_api\Service
  */
 class Client {
 
@@ -16,7 +18,9 @@ class Client {
   protected $config;
 
   /**
-   * Constructor for the Client class.
+   * Client constructor.
+   *
+   * @param \Drupal\Core\Config\ConfigFactory $config
    */
   public function __construct(ConfigFactory $config) {
     // Get the config.

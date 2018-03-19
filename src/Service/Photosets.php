@@ -3,7 +3,9 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Service class for Flickr API Photosets.
+ * Class Photosets
+ *
+ * @package Drupal\flickr_api\Service
  */
 class Photosets {
 
@@ -13,7 +15,9 @@ class Photosets {
   protected $client;
 
   /**
-   * Constructor for the Flickr API Photosets class.
+   * Photosets constructor.
+   *
+   * @param \Drupal\flickr_api\Service\Client $client
    */
   public function __construct(Client $client) {
     // Flickr API Client.

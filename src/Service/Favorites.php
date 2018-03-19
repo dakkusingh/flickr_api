@@ -3,7 +3,9 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Service class for Flickr API Favorites.
+ * Class Favorites
+ *
+ * @package Drupal\flickr_api\Service
  */
 class Favorites {
 
@@ -13,7 +15,9 @@ class Favorites {
   protected $client;
 
   /**
-   * Constructor for the Flickr API Favorites class.
+   * Favorites constructor.
+   *
+   * @param \Drupal\flickr_api\Service\Client $client
    */
   public function __construct(Client $client) {
     // Flickr API Client.

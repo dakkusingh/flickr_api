@@ -3,7 +3,9 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Service class for Flickr API Galleries.
+ * Class Galleries
+ *
+ * @package Drupal\flickr_api\Service
  */
 class Galleries {
 
@@ -13,7 +15,9 @@ class Galleries {
   protected $client;
 
   /**
-   * Constructor for the Flickr API Galleries class.
+   * Galleries constructor.
+   *
+   * @param \Drupal\flickr_api\Service\Client $client
    */
   public function __construct(Client $client) {
     // Flickr API Client.

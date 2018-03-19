@@ -3,7 +3,9 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Service class for Flickr API Groups.
+ * Class Groups
+ *
+ * @package Drupal\flickr_api\Service
  */
 class Groups {
 
@@ -13,7 +15,10 @@ class Groups {
   protected $client;
 
   /**
-   * Constructor for the Flickr API Groups class.
+   * Groups constructor.
+   *
+   * @param \Drupal\flickr_api\Service\Client $client
+   * @param \Drupal\flickr_api\Service\Helpers $helpers
    */
   public function __construct(Client $client, Helpers $helpers) {
     // Flickr API Client.

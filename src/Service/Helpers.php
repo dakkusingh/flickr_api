@@ -3,12 +3,16 @@
 namespace Drupal\flickr_api\Service;
 
 /**
- * Service class for Flickr API Helpers.
+ * Class Helpers
+ *
+ * @package Drupal\flickr_api\Service
  */
 class Helpers {
 
   /**
-   * Flickr is NSID.
+   * @param $id
+   *
+   * @return false|int
    */
   public function isNsid($id) {
     return preg_match('/^\d+@N\d+$/', $id);
