@@ -36,7 +36,7 @@ class Tags {
    *   Response from the flickr method flickr.tags.getListUserPopular.
    *   (https://www.flickr.com/services/api/flickr.tags.getListUserPopular.html)
    */
-  public function tagsGetListUserPopular($nsid, $count = NULL) {
+  public function tagsGetListUserPopular($nsid, $count = NULL, $cacheable = TRUE) {
     $args = ['user_id' => $nsid];
 
     if ($count != NULL) {
@@ -45,7 +45,8 @@ class Tags {
 
     $response = $this->client->request(
       'flickr.tags.getListUserPopular',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {
@@ -65,14 +66,15 @@ class Tags {
    *   Response from the flickr method flickr.tags.getListUser.
    *   (https://www.flickr.com/services/api/flickr.tags.getListUser.html)
    */
-  public function tagsGetListUser($nsid) {
+  public function tagsGetListUser($nsid, $cacheable = TRUE) {
     $args = [
       'user_id' => $nsid,
     ];
 
     $response = $this->client->request(
       'flickr.tags.getListUser',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {

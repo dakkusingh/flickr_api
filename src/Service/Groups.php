@@ -38,7 +38,7 @@ class Groups {
    *   Response from the flickr method flickr.groups.getInfo.
    *   (https://www.flickr.com/services/api/flickr.groups.getInfo.html)
    */
-  public function groupsGetInfo($id, $other_args = []) {
+  public function groupsGetInfo($id, $other_args = [], $cacheable = TRUE) {
     if ($this->helpers->isNsid($id)) {
       $args = ['group_id' => $id];
     }
@@ -50,7 +50,8 @@ class Groups {
 
     $response = $this->client->request(
       'flickr.groups.getInfo',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {

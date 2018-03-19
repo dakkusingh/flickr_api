@@ -34,14 +34,14 @@ class Galleries {
    *   Response from the flickr method flickr.gallery.getInfo.
    *   (https://www.flickr.com/services/api/flickr.gallery.getInfo.html)
    */
-  public function galleriesGetInfo($id, $other_args = []) {
+  public function galleriesGetInfo($id, $other_args = [], $cacheable = TRUE) {
     $args = ['gallery_id' => $id];
     $args = array_merge($args, $other_args);
 
     $response = $this->client->request(
       'flickr.galleries.getInfo',
       $args,
-      FALSE
+      $cacheable
     );
 
     if ($response) {
@@ -61,7 +61,7 @@ class Galleries {
    *   Response from the flickr method flickr.galleries.getPhotos.
    *   (https://www.flickr.com/services/api/flickr.galleries.getPhotos.html)
    */
-  public function galleriesGetPhotos($id, $page = 1, $other_args = []) {
+  public function galleriesGetPhotos($id, $page = 1, $other_args = [], $cacheable = TRUE) {
     $args = [
       'gallery_id' => $id,
       'page' => $page,
@@ -76,7 +76,8 @@ class Galleries {
 
     $response = $this->client->request(
       'flickr.galleries.getPhotos',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {
@@ -96,7 +97,7 @@ class Galleries {
    *   Response from the flickr method flickr.galleries.getList.
    *   (https://www.flickr.com/services/api/flickr.galleries.getList.html)
    */
-  public function galleriesGetList($nsid, $page = 1) {
+  public function galleriesGetList($nsid, $page = 1, $cacheable = TRUE) {
     $args = [
       'user_id' => $nsid,
       'page' => $page,
@@ -104,7 +105,8 @@ class Galleries {
 
     $response = $this->client->request(
       'flickr.galleries.getList',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {

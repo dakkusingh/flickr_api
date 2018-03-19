@@ -35,14 +35,15 @@ class People {
    *   (https://www.flickr.com/services/api/flickr.people.getInfo.html)
    *   or FALSE on error.
    */
-  public function peopleGetInfo($nsid) {
+  public function peopleGetInfo($nsid, $cacheable = TRUE) {
     $args = [
       'user_id' => $nsid,
     ];
 
     $response = $this->client->request(
       'flickr.people.getInfo',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {
@@ -62,14 +63,15 @@ class People {
    *   Response from the flickr method flickr.people.findByUsername.
    *   (https://www.flickr.com/services/api/flickr.people.findByUsername.html)
    */
-  public function peopleFindByUsername($username) {
+  public function peopleFindByUsername($username, $cacheable = TRUE) {
     $args = [
       'username' => $username,
     ];
 
     $response = $this->client->request(
       'flickr.people.findByUsername',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {
@@ -89,14 +91,15 @@ class People {
    *   Response from the flickr method flickr.people.findByUsername.
    *   (https://www.flickr.com/services/api/flickr.people.findByUsername.html)
    */
-  public function peopleFindByAlias($alias) {
+  public function peopleFindByAlias($alias, $cacheable = TRUE) {
     $args = [
       'url' => 'https://www.flickr.com/photos/' . $alias,
     ];
 
     $response = $this->client->request(
       'flickr.people.findByUsername',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response && $response['stat'] == 'ok') {
@@ -116,14 +119,15 @@ class People {
    *   Response from the flickr method flickr.people.findByEmail.
    *   (https://www.flickr.com/services/api/flickr.people.findByEmail.html)
    */
-  public function peopleFindByEmail($email) {
+  public function peopleFindByEmail($email, $cacheable = TRUE) {
     $args = [
       'find_email' => $email,
     ];
 
     $response = $this->client->request(
       'flickr.people.findByEmail',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {
@@ -143,7 +147,7 @@ class People {
    *   Response from the flickr method flickr.people.getPublicPhotos.
    *   (https://www.flickr.com/services/api/flickr.people.getPublicPhotos.html)
    */
-  public function peopleGetPublicPhotos($nsid, $page = 1, $other_args = []) {
+  public function peopleGetPublicPhotos($nsid, $page = 1, $other_args = [], $cacheable = TRUE) {
     $args = [
       'user_id' => $nsid,
       'page' => $page,
@@ -159,7 +163,8 @@ class People {
 
     $response = $this->client->request(
       'flickr.people.getPublicPhotos',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {

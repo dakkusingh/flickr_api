@@ -34,12 +34,13 @@ class Photosets {
    *   Response from the flickr method flickr.photosets.getInfo.
    *   (https://www.flickr.com/services/api/flickr.photosets.getInfo.html)
    */
-  public function photosetsGetInfo($photoset_id) {
+  public function photosetsGetInfo($photoset_id, $cacheable = TRUE) {
     $args = ['photoset_id' => $photoset_id];
 
     $response = $this->client->request(
       'flickr.photosets.getInfo',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {
@@ -59,7 +60,7 @@ class Photosets {
    *   Response from the flickr method flickr.photosets.getList.
    *   (https://www.flickr.com/services/api/flickr.photosets.getList.html)
    */
-  public function photosetsGetList($nsid, $page = NULL, $per_page = NULL) {
+  public function photosetsGetList($nsid, $page = NULL, $per_page = NULL, $cacheable = TRUE) {
     $args = [
       'user_id' => $nsid,
     ];
@@ -74,7 +75,8 @@ class Photosets {
 
     $response = $this->client->request(
       'flickr.photosets.getList',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {
@@ -94,7 +96,7 @@ class Photosets {
    *   Response from the flickr method flickr.photosets.getPhotos.
    *   (https://www.flickr.com/services/api/flickr.photosets.getPhotos.html)
    */
-  public function photosetsGetPhotos($photoset_id, $other_args = [], $page = 1) {
+  public function photosetsGetPhotos($photoset_id, $other_args = [], $page = 1, $cacheable = TRUE) {
     $args = [
       'photoset_id' => $photoset_id,
       'page' => $page,
@@ -113,7 +115,8 @@ class Photosets {
 
     $response = $this->client->request(
       'flickr.photosets.getPhotos',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {
@@ -148,4 +151,5 @@ class Photosets {
 
     return $extras;
   }
+
 }

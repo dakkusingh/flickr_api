@@ -34,12 +34,13 @@ class Photos {
    *   Response from the flickr method flickr.photos.getInfo..
    *   (https://www.flickr.com/services/api/flickr.photos.getInfo.html)
    */
-  public function photosGetInfo($photo_id) {
+  public function photosGetInfo($photo_id, $cacheable = TRUE) {
     $args = ['photo_id' => $photo_id];
 
     $response = $this->client->request(
       'flickr.photos.getInfo',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {
@@ -59,12 +60,13 @@ class Photos {
    *   Response from the flickr method flickr.photos.getSizes..
    *   (https://www.flickr.com/services/api/flickr.photos.getSizes.html)
    */
-  public function photosGetSizes($photo_id) {
+  public function photosGetSizes($photo_id, $cacheable = TRUE) {
     $args = ['photo_id' => $photo_id];
 
     $response = $this->client->request(
       'flickr.photos.getSizes',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {
@@ -86,7 +88,7 @@ class Photos {
    *   Response from the flickr method flickr.photos.search.
    *   (https://www.flickr.com/services/api/flickr.photos.search.html)
    */
-  public function photosSearch($nsid, $page = 1, $other_args = []) {
+  public function photosSearch($nsid, $page = 1, $other_args = [], $cacheable = TRUE) {
     $args = [
       'page' => $page,
       'user_id' => $nsid,
@@ -102,7 +104,8 @@ class Photos {
 
     $response = $this->client->request(
       'flickr.photos.search',
-      $args
+      $args,
+      $cacheable
     );
 
     if ($response) {
