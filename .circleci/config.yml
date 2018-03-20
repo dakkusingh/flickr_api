@@ -137,16 +137,16 @@ code_coverage: &code_coverage
 # Declare all of the jobs we should run.
 version: 2
 jobs:
-  update-dependencies:
-     <<: *update_dependencies
-  run-unit-kernel-tests:
-     <<: *unit_kernel_tests
-  run-behat-tests:
-     <<: *behat_tests
+  # update-dependencies:
+  #    <<: *update_dependencies
+  # run-unit-kernel-tests:
+  #    <<: *unit_kernel_tests
+  # run-behat-tests:
+  #    <<: *behat_tests
   run-code-sniffer:
      <<: *code_sniffer
-  run-code-coverage:
-     <<: *code_coverage
+  # run-code-coverage:
+  #    <<: *code_coverage
 
 workflows:
   version: 2
