@@ -155,16 +155,16 @@ workflows:
   test_and_lint:
     jobs:
       - update-dependencies
-      - run-unit-kernel-tests:
-          requires:
-            - update-dependencies
-      - run-behat-tests:
-          requires:
-            - update-dependencies
+      # - run-unit-kernel-tests:
+      #     requires:
+      #       - update-dependencies
+      # - run-behat-tests:
+      #     requires:
+      #       - update-dependencies
       - run-code-sniffer:
           requires:
             - update-dependencies
-      - run-code-coverage:
-          requires:
-            - update-dependencies
-            - run-unit-kernel-tests
+      # - run-code-coverage:
+      #     requires:
+      #       - update-dependencies
+      #       - run-unit-kernel-tests
