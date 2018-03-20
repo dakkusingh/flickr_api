@@ -1,17 +1,4 @@
 # Default configuration file for Drupal modules.
-#
-# Use setup.sh to automate setting this up. Otherwise, to use this in a new
-# module:
-#   1. Copy config.yml to the module's .circleci directory.
-#   2. Change 'latest' in the image tag to the latest tag.
-#   3. Update the working_directory key.
-#   4. Connect CircleCI to the repository through the Circle UI.
-#   5. Set the COMPOSER_AUTH environment variable in Circle to grant access to
-#      any private repositories.
-#   6. Create a status badge embed code in Circle and add it to the README.md.
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
 
 defaults: &defaults
   docker:
