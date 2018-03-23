@@ -1,4 +1,5 @@
 # Flickr API Integration
+[![CircleCI](https://circleci.com/gh/dakkusingh/flickr_api.svg?style=svg)](https://circleci.com/gh/dakkusingh/flickr_api)
 
 Flickr API Integration for Drupal provides fully configurable 
 image galleries from Flickr website.
