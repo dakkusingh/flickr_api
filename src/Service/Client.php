@@ -4,6 +4,7 @@ namespace Drupal\flickr_api\Service;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use GuzzleHttp\Client as GuzzleClient;
@@ -26,6 +27,62 @@ class Client {
   protected $config;
 
   /**
+   * Cache backend.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  private $cacheBackend;
+
+  /**
+   * The messenger.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
+   * Api uri.
+   *
+   * @var string
+   */
+  private $apiUri;
+
+  /**
+   * Host uri.
+   *
+   * @var string
+   */
+  private $hostUri;
+
+  /**
+   * API Key.
+   *
+   * @var string
+   */
+  private $apiKey;
+
+  /**
+   * API Secret.
+   *
+   * @var string
+   */
+  private $apiSecret;
+
+  /**
+   * Max Age.
+   *
+   * @var string
+   */
+  private $apiCacheMaximumAge;
+
+  /**
+   * Guzzle Client.
+   *
+   * @var \GuzzleHttp\Client
+   */
+  private $guzzleClient;
+
+  /**
    * Client constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactory $config
@@ -34,25 +91,26 @@ class Client {
    *   Cache backend.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $stringTranslation
    *   String translation.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger.
    */
   public function __construct(ConfigFactory $config,
                               CacheBackendInterface $cacheBackend,
-                              TranslationInterface $stringTranslation) {
-    // Get the config.
+                              TranslationInterface $stringTranslation,
+                              MessengerInterface $messenger) {
     $this->config = $config->get('flickr_api.settings');
-    // Cache Backend.
     $this->cacheBackend = $cacheBackend;
-    // String Translation.
     $this->stringTranslation = $stringTranslation;
+    $this->messenger = $messenger;
 
-    $this->api_uri = $this->config->get('api_uri');
-    $this->host_uri = $this->config->get('host_uri');
-    $this->api_key = $this->config->get('api_key');
-    $this->api_secret = $this->config->get('api_secret');
-    $this->api_cache_maximum_age = $this->config->get('api_cache_maximum_age');
+    $this->apiUri = $this->config->get('api_uri');
+    $this->hostUri = $this->config->get('host_uri');
+    $this->apiKey = $this->config->get('api_key');
+    $this->apiSecret = $this->config->get('api_secret');
+    $this->apiCacheMaximumAge = $this->config->get('api_cache_maximum_age');
 
     $this->guzzleClient = new GuzzleClient([
-      'base_uri' => $this->api_uri,
+      'base_uri' => $this->apiUri,
     ]);
 
   }
@@ -89,7 +147,7 @@ class Client {
     // No cache. Do it the hard way.
     else {
       // If we've got a secret, sign the arguments.
-      if ($secret = $this->api_secret) {
+      if ($secret = $this->apiSecret) {
         $args['api_sig'] = md5($secret . $argHash);
       }
 
@@ -97,8 +155,8 @@ class Client {
       $response = $this->doRequest('', $args);
       if ($response) {
         // Cache the response if we got one.
-        if ($this->api_cache_maximum_age != 0 && $cacheable == TRUE) {
-          $this->cacheBackend->set($cid, $response, time() + $this->api_cache_maximum_age);
+        if ($this->apiCacheMaximumAge != 0 && $cacheable == TRUE) {
+          $this->cacheBackend->set($cid, $response, time() + $this->apiCacheMaximumAge);
         }
 
         // Return result from source if found.
@@ -125,7 +183,7 @@ class Client {
    */
   private function buildArgs(array $args, $method, $format = 'json') {
     // Add in additional parameters then sort them for signing.
-    $args['api_key'] = $this->api_key;
+    $args['api_key'] = $this->apiKey;
     $args['method'] = $method;
     $args['format'] = $format;
     $args['nojsoncallback'] = 1;
@@ -168,14 +226,15 @@ class Client {
    *   False or array.
    */
   private function doRequest($url, array $parameters = [], $requestMethod = 'GET') {
-    if (!$this->api_key || !$this->api_secret) {
+    if (!$this->apiKey || !$this->apiSecret) {
       $msg = $this->t('Flickr API credentials are not set. It can be set on the <a href=":config_page">configuration page</a>.',
         [':config_page' => Url::fromRoute('flickr_api.settings')]
       );
 
-      drupal_set_message($msg, 'error');
+      $this->messenger->addError($msg);
       return FALSE;
     }
+
     $response = $this->guzzleClient->request($requestMethod, $url, ['query' => $parameters]);
 
     // TODO Error checking can be improved.
